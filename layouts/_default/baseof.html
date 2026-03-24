@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    {{ partial "head.html" . }}
+</head>
+<body class="antialiased selection:bg-stone-300 selection:text-stone-900 dark:selection:bg-stone-700 dark:selection:text-stone-100">
+
+    <canvas id="escher-canvas"></canvas>
+
+    {{ partial "nav.html" . }}
+
+    {{ block "main" . }}{{ end }}
+
+    <script>
+        // --- Theme ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        const themeText = document.getElementById('theme-text');
+        const iconSun = document.getElementById('theme-icon-sun');
+        const iconMoon = document.getElementById('theme-icon-moon');
+
+        function updateThemeUI(isDark) {
+            if (isDark) {
+                html.classList.add('dark');
+                themeText.textContent = 'COSMIC';
+                iconSun.classList.add('hidden');
+                iconMoon.classList.remove('hidden');
+            } else {
+                html.classList.remove('dark');
+                themeText.textContent = 'PAPER';
+                iconSun.classList.remove('hidden');
+                iconMoon.classList.add('hidden');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') updateThemeUI(true);
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = !html.classList.contains('dark');
+            updateThemeUI(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            flashCanvas();
+        });
+
+        // --- Canvas ---
+        const canvas = document.getElementById('escher-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        {{ block "canvas-config" . }}
+        const PARTICLE_COUNT_DARK = 80;
+        const PARTICLE_COUNT_LIGHT = 50;
+        {{ end }}
+
+        function getConfig() {
+            const isDark = html.classList.contains('dark');
+            return {
+                color: isDark ? 'rgba(200, 200, 200, ' : 'rgba(50, 40, 30, ',
+                lineDist: 150,
+                particleCount: isDark ? PARTICLE_COUNT_DARK : PARTICLE_COUNT_LIGHT,
+                speed: isDark ? 0.3 : 0.1
+            };
+        }
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * getConfig().speed;
+                this.vy = (Math.random() - 0.5) * getConfig().speed;
+                this.size = Math.random() * 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+                if (mouse.x) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 200) {
+                        this.x -= dx * 0.01;
+                        this.y -= dy * 0.01;
+                    }
+                }
+            }
+
+            draw() {
+                const conf = getConfig();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = conf.color + '0.5)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = getConfig().particleCount;
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+
+        function drawLines() {
+            const conf = getConfig();
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < conf.lineDist) {
+                        ctx.beginPath();
+                        const opacity = 1 - (distance / conf.lineDist);
+                        ctx.strokeStyle = conf.color + opacity * 0.2 + ')';
+                        ctx.lineWidth = 1;
+                        if (i % 5 === 0 && j % 5 === 0 && distance < 100) {
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.lineTo(particles[i].x + 20, particles[j].y + 20);
+                            ctx.closePath();
+                            ctx.fillStyle = conf.color + (opacity * 0.05) + ')';
+                            ctx.fill();
+                        } else {
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                        }
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            drawLines();
+            requestAnimationFrame(animate);
+        }
+
+        function flashCanvas() { initParticles(); }
+
+        function triggerGlitch() {
+            const el = document.getElementById('glitch-target');
+            if (!el) return;
+            el.classList.add('glitch-hover');
+            setTimeout(() => el.classList.remove('glitch-hover'), 500);
+        }
+
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+
+        resize();
+        animate();
+    </script>
+
+</body>
+</html>

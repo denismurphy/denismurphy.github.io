@@ -1,0 +1,152 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | Denis Murphy{{ end }}</title>
+<meta name="description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else if .Summary }}{{ .Summary }}{{ else }}{{ site.Params.description }}{{ end }}">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    :root {
+        --bg-primary: 40, 30%, 97%;
+        --bg-card: 40, 25%, 95%;
+        --text-primary: 30, 15%, 15%;
+        --text-secondary: 30, 10%, 40%;
+        --border-color: 35, 15%, 85%;
+        --accent: 35, 20%, 88%;
+        --shadow-color: 30, 15%, 15%;
+        --code-bg: 40, 20%, 92%;
+    }
+
+    .dark {
+        --bg-primary: 30, 5%, 10.5%;
+        --bg-card: 30, 5%, 14%;
+        --text-primary: 40, 20%, 92%;
+        --text-secondary: 40, 10%, 70%;
+        --border-color: 30, 5%, 25%;
+        --accent: 30, 10%, 20%;
+        --shadow-color: 0, 0%, 0%;
+        --code-bg: 30, 5%, 13%;
+    }
+
+    body {
+        background-color: hsl(var(--bg-primary));
+        color: hsl(var(--text-primary));
+        font-family: 'Inter', sans-serif;
+        transition: background-color 0.5s ease, color 0.5s ease;
+        overflow-x: hidden;
+        line-height: 1.7;
+    }
+
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .paper-card {
+        background-color: hsl(var(--bg-card));
+        border: 1px solid hsl(var(--border-color));
+        box-shadow:
+            0 4px 6px -1px rgba(var(--shadow-color), 0.05),
+            0 2px 4px -1px rgba(var(--shadow-color), 0.03);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .paper-card:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            0 10px 15px -3px rgba(var(--shadow-color), 0.08),
+            0 4px 6px -2px rgba(var(--shadow-color), 0.04);
+        border-color: hsl(var(--text-primary) / 0.2);
+    }
+
+    #escher-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
+    .text-muted { color: hsl(var(--text-secondary)); }
+    .border-theme { border-color: hsl(var(--border-color)); }
+    .bg-theme { background-color: hsl(var(--bg-primary)); }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: hsl(var(--bg-primary)); }
+    ::-webkit-scrollbar-thumb { background: hsl(var(--border-color)); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: hsl(var(--text-secondary)); }
+
+    .glitch-hover { animation: glitch-anim 0.3s infinite; }
+
+    @keyframes glitch-anim {
+        0%   { transform: translate(0) }
+        20%  { transform: translate(-2px, 2px) }
+        40%  { transform: translate(-2px, -2px) }
+        60%  { transform: translate(2px, 2px) }
+        80%  { transform: translate(2px, -2px) }
+        100% { transform: translate(0) }
+    }
+
+    /* Article content typography */
+    .article-content h2 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        letter-spacing: -0.025em;
+        line-height: 1;
+    }
+
+    .article-content p {
+        margin-bottom: 1.5rem;
+        color: hsl(var(--text-primary) / 0.9);
+    }
+
+    .article-content ul {
+        margin-bottom: 1.5rem;
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        color: hsl(var(--text-secondary));
+    }
+
+    .article-content li {
+        margin-bottom: 0.5rem;
+    }
+
+    .article-content blockquote {
+        border-left: 4px solid hsl(var(--accent));
+        padding-left: 1.5rem;
+        font-style: italic;
+        color: hsl(var(--text-secondary));
+        margin: 2rem 0;
+    }
+
+    .article-content pre {
+        background-color: hsl(var(--code-bg));
+        border: 1px solid hsl(var(--border-color));
+        padding: 1.5rem;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin: 2rem 0;
+        font-size: 0.875rem;
+    }
+
+    .article-content code {
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .article-content p code,
+    .article-content li code {
+        background-color: hsl(var(--bg-card));
+        border: 1px solid hsl(var(--border-color));
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-size: 0.85em;
+    }
+</style>

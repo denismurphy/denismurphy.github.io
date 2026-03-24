@@ -1,0 +1,20 @@
+baseURL = "https://denismurphy.ie/"
+languageCode = "en-ie"
+title = "Denis Murphy | Senior Software Engineer"
+
+[params]
+  author      = "Denis Murphy"
+  location    = "Tralee, Co. Kerry, Ireland"
+  email       = "'me' [U+0040] denismurphy.ie"
+  github      = "https://github.com/denismurphy"
+  description = "Senior Software Engineer with 14+ years of experience transforming legacy enterprise systems into high-performance cloud architectures."
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    codeFences = false
+
+[taxonomies]
+  tag = "tags"

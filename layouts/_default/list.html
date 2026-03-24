@@ -1,0 +1,51 @@
+{{ define "canvas-config" }}
+const PARTICLE_COUNT_DARK = 60;
+const PARTICLE_COUNT_LIGHT = 40;
+{{ end }}
+
+{{ define "main" }}
+<main class="max-w-2xl mx-auto px-6 pt-32 pb-20">
+
+    <header class="mb-16 border-b border-[hsl(var(--border-color))] pb-8">
+        <p class="font-mono text-sm text-muted mb-3">writing</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.1] mb-4">
+            Blog
+        </h1>
+        <p class="text-muted text-lg">
+            Architecture decisions, engineering lessons, and notes from the field.
+        </p>
+    </header>
+
+    {{ if .Pages }}
+    <div class="space-y-6">
+        {{ range .Pages.ByDate.Reverse }}
+        <a href="{{ .RelPermalink }}" class="paper-card p-6 block group rounded-sm">
+            <div class="flex items-center gap-4 mb-3 text-xs font-mono text-muted">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 02, 2006" }}</time>
+                <span>•</span>
+                <span>{{ .ReadingTime }} min read</span>
+                {{ with .Params.tags }}
+                <span>•</span>
+                {{ range first 2 . }}
+                <span class="px-2 py-0.5 border border-theme rounded-full">{{ . }}</span>
+                {{ end }}
+                {{ end }}
+            </div>
+            <h2 class="text-xl font-bold tracking-tight mb-2 group-hover:underline decoration-1 underline-offset-4">
+                {{ .Title }}
+            </h2>
+            {{ with .Summary }}
+            <p class="text-muted text-sm leading-relaxed line-clamp-2">{{ . }}</p>
+            {{ end }}
+            <div class="mt-4 font-mono text-xs text-muted group-hover:text-[hsl(var(--text-primary))] transition-colors">
+                Read article →
+            </div>
+        </a>
+        {{ end }}
+    </div>
+    {{ else }}
+    <p class="text-muted font-mono text-sm">No posts yet. Check back soon.</p>
+    {{ end }}
+
+</main>
+{{ end }}

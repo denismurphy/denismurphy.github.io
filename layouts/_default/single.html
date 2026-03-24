@@ -1,0 +1,44 @@
+{{ define "canvas-config" }}
+const PARTICLE_COUNT_DARK = 60;
+const PARTICLE_COUNT_LIGHT = 40;
+{{ end }}
+
+{{ define "main" }}
+<main class="max-w-2xl mx-auto px-6 pt-32 pb-20">
+
+    <article>
+        <header class="mb-12 border-b border-[hsl(var(--border-color))] pb-8">
+            <div class="flex items-center gap-4 mb-4 text-sm font-mono text-muted">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 02, 2006" }}</time>
+                <span>•</span>
+                <span>{{ .ReadingTime }} min read</span>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+                {{ .Title }}
+            </h1>
+
+            {{ with .Params.tags }}
+            <div class="flex flex-wrap gap-2">
+                {{ range . }}
+                <span class="px-2 py-1 text-xs font-mono border border-theme rounded-full">{{ . }}</span>
+                {{ end }}
+            </div>
+            {{ end }}
+        </header>
+
+        <div class="article-content text-lg">
+            {{ .Content }}
+        </div>
+    </article>
+
+    <footer class="mt-20 pt-10 border-t border-[hsl(var(--border-color))]">
+        <div class="flex justify-between items-center">
+            <a href="/blog/" class="group flex items-center gap-2 font-mono text-sm font-bold text-[hsl(var(--text-primary))]">
+                <span class="group-hover:-translate-x-1 transition-transform">&lt;-</span> Back to Overview
+            </a>
+        </div>
+    </footer>
+
+</main>
+{{ end }}

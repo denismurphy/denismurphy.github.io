@@ -1,0 +1,40 @@
+<nav class="fixed top-0 w-full z-50 backdrop-blur-sm border-b border-theme bg-[hsl(var(--bg-primary)/0.8)] px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+        {{ if .IsHome }}
+            <div id="glitch-target" class="w-8 h-8 border border-theme flex items-center justify-center font-bold text-xl overflow-hidden relative group cursor-pointer" onclick="triggerGlitch()">
+                <span class="group-hover:hidden">D</span>
+                <span class="hidden group-hover:block font-mono text-sm">&lt;/&gt;</span>
+            </div>
+            <span class="font-semibold tracking-tight hidden sm:block">Denis Murphy</span>
+        {{ else if and (eq .Section "blog") .IsPage }}
+            <a href="/blog/" class="w-8 h-8 border border-theme flex items-center justify-center font-bold text-xl overflow-hidden relative group cursor-pointer">
+                <span class="group-hover:hidden">D</span>
+                <span class="hidden group-hover:block font-mono text-sm">&lt;-</span>
+            </a>
+            <a href="/" class="font-semibold tracking-tight hidden sm:block hover:underline decoration-1 underline-offset-4">Denis Murphy</a>
+            <span class="text-muted text-sm font-mono">/ article</span>
+        {{ else }}
+            <a href="/" class="w-8 h-8 border border-theme flex items-center justify-center font-bold text-xl overflow-hidden relative group cursor-pointer">
+                <span class="group-hover:hidden">D</span>
+                <span class="hidden group-hover:block font-mono text-sm">&lt;-</span>
+            </a>
+            <a href="/" class="font-semibold tracking-tight hidden sm:block hover:underline decoration-1 underline-offset-4">Denis Murphy</a>
+            <span class="text-muted text-sm font-mono">/ blog</span>
+        {{ end }}
+    </div>
+
+    <div class="flex items-center gap-6 font-mono text-sm">
+        {{ if .IsHome }}
+            <a href="#experience" class="hover:underline decoration-1 underline-offset-4 hidden sm:block">Experience</a>
+            <a href="#stack" class="hover:underline decoration-1 underline-offset-4 hidden sm:block">Stack</a>
+            <a href="/blog/" class="hover:underline decoration-1 underline-offset-4 hidden sm:block">Blog</a>
+        {{ else if and (eq .Section "blog") .IsPage }}
+            <a href="/blog/" class="hover:underline decoration-1 underline-offset-4 hidden sm:block">Back to Blog</a>
+        {{ end }}
+        <button id="theme-toggle" class="flex items-center gap-2 px-3 py-1 rounded-full border border-theme hover:bg-[hsl(var(--bg-card))] transition-colors">
+            <span id="theme-icon-sun" class="block">☀︎</span>
+            <span id="theme-icon-moon" class="hidden">✦</span>
+            <span class="text-xs uppercase tracking-widest" id="theme-text">Paper</span>
+        </button>
+    </div>
+</nav>
