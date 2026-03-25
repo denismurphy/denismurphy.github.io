@@ -29,17 +29,16 @@
             <a id="contact-btn" class="paper-card px-6 py-3 font-semibold rounded-sm hover:bg-[hsl(var(--text-primary))] hover:text-[hsl(var(--bg-primary))] transition-all flex items-center justify-center min-w-[120px]" style="pointer-events:none;cursor:default">
                 <div class="loader"></div>
             </a>
-            <script>
-            (function () {
-                var e = '{{ site.Params.email }}';
-                var l = '{{ "Contact Me" | base64Encode }}';
-                var botDone = false;
-                var timerDone = false;
-                var isBot = false;
+            <script type="module">
+                const e = '{{ site.Params.email }}';
+                const l = '{{ "Contact Me" | base64Encode }}';
+                let botDone = false;
+                let timerDone = false;
+                let isBot = false;
 
                 function tryActivate() {
                     if (!botDone || !timerDone || isBot) return;
-                    var btn = document.getElementById('contact-btn');
+                    const btn = document.getElementById('contact-btn');
                     btn.href = 'mailto:' + atob(e);
                     btn.innerHTML = atob(l);
                     btn.style.pointerEvents = '';
@@ -47,34 +46,24 @@
                 }
 
                 // BotD detection
-                var s = document.createElement('script');
-                s.src = 'https://openfpcdn.io/botd/v2';
-                s.onload = function () {
-                    FingerprintJS.Botd.load().then(function (botd) {
-                        return botd.detect();
-                    }).then(function (result) {
+                import('https://openfpcdn.io/botd/v2')
+                    .then((Botd) => Botd.load())
+                    .then((botd) => botd.detect())
+                    .then((result) => {
                         isBot = result.bot;
                         botDone = true;
                         tryActivate();
-                    }).catch(function () {
-                        // On error assume human
+                    })
+                    .catch(() => {
                         botDone = true;
                         tryActivate();
                     });
-                };
-                s.onerror = function () {
-                    // CDN failed — assume human
-                    botDone = true;
-                    tryActivate();
-                };
-                document.head.appendChild(s);
 
-                // 20-second timer
-                setTimeout(function () {
+                // 6-second timer
+                setTimeout(() => {
                     timerDone = true;
                     tryActivate();
                 }, 6000);
-            })();
             </script>
             <a href="{{ site.Params.github }}" target="_blank" rel="noopener" class="px-6 py-3 font-mono text-sm border-b border-[hsl(var(--border-color))] hover:border-[hsl(var(--text-primary))] transition-colors flex items-center gap-2">
                 github.com/denismurphy ↗
