@@ -149,4 +149,11 @@
         border-radius: 4px;
         font-size: 0.85em;
     }
+    .loader {
+        width: 40px;
+        aspect-ratio: 4;
+        background: radial-gradient(circle closest-side, hsl(var(--text-primary)) 90%, transparent) 0/calc(100%/3) 100% no-repeat;
+        animation: l2 1s steps(3) infinite;
+    }
+    @keyframes l2 { to { background-position: 150% } }
 </style>
