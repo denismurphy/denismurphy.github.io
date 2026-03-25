@@ -48,7 +48,7 @@
 
                 // BotD detection
                 var s = document.createElement('script');
-                s.src = 'https://unpkg.com/@fingerprintjs/botd@1/dist/botd.umd.min.js';
+                s.src = 'https://openfpcdn.io/botd/v2';
                 s.onload = function () {
                     FingerprintJS.Botd.load().then(function (botd) {
                         return botd.detect();
