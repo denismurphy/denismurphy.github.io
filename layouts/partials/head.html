@@ -220,6 +220,12 @@
     .yaml-watermark { color: hsl(var(--text-primary)); opacity: 0.08; z-index: -1; }
     .dark .yaml-watermark { opacity: 0.04; }
 
+    /* Contact button hover — invert bg/text reliably in both themes */
+    #contact-btn:hover {
+        background-color: hsl(var(--text-primary));
+        color: hsl(var(--bg-primary));
+    }
+
     /* Dark mode selection (class-based toggle) */
     .dark ::selection {
         background-color: oklch(37.4% .01 67.558);
