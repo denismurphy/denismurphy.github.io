@@ -3,20 +3,39 @@
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | Denis Murphy{{ end }}</title>
 <meta name="description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else if .Summary }}{{ .Summary }}{{ else }}{{ site.Params.description }}{{ end }}">
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- Fonts (self-hosted) -->
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CSS (pre-built) -->
+<link rel="stylesheet" href="/css/tailwind.css">
+
+<!-- BotD preconnect -->
+<link rel="preconnect" href="https://openfpcdn.io">
 
 <style>
+    @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url('/fonts/inter-latin.woff2') format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
     :root {
         --bg-primary: 40, 30%, 97%;
         --bg-card: 40, 25%, 95%;
         --text-primary: 30, 15%, 15%;
-        --text-secondary: 30, 10%, 40%;
+        --text-secondary: 30, 10%, 32%;
         --border-color: 35, 15%, 85%;
         --accent: 35, 20%, 88%;
         --shadow-color: 30, 15%, 15%;
@@ -156,4 +175,10 @@
         animation: l2 1s steps(3) infinite;
     }
     @keyframes l2 { to { background-position: 150% } }
+
+    /* Dark mode selection (class-based toggle) */
+    .dark ::selection {
+        background-color: oklch(37.4% .01 67.558);
+        color: oklch(97% .001 106.424);
+    }
 </style>
