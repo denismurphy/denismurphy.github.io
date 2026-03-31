@@ -455,6 +455,42 @@
         </div>
     </section>
 
+    <!-- Writing / Latest Post -->
+    {{ $posts := where .Site.RegularPages "Section" "blog" }}
+    {{ if $posts }}
+    {{ $latest := index ($posts | first 1) 0 }}
+    <section class="mb-24">
+        <h2 class="text-2xl font-bold tracking-tight mb-8 flex items-center gap-3">
+            <span class="w-8 h-[1px] bg-[hsl(var(--text-primary))]"></span>
+            Writing
+        </h2>
+        <div class="border-l-2 border-[hsl(var(--border-color))] pl-8">
+            <div class="flex flex-wrap items-center gap-4 font-mono text-xs text-muted mb-3">
+                <time datetime="{{ $latest.Date.Format "2006-01-02" }}">{{ $latest.Date.Format "Jan 02, 2006" }}</time>
+                <span>·</span>
+                <span>{{ $latest.ReadingTime }} min read</span>
+            </div>
+            {{ with $latest.Params.tags }}
+            <div class="flex flex-wrap gap-2 mb-4">
+                {{ range . }}
+                <span class="px-2 py-1 text-xs font-mono border border-theme rounded-full">{{ . }}</span>
+                {{ end }}
+            </div>
+            {{ end }}
+            <a href="{{ $latest.Permalink }}" class="group block mb-4">
+                <h3 class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight group-hover:opacity-70 transition-opacity">{{ $latest.Title }}</h3>
+            </a>
+            {{ with $latest.Params.summary }}
+            <p class="text-muted text-base leading-relaxed mb-6 max-w-2xl">{{ . }}</p>
+            {{ end }}
+            <div class="flex items-center gap-6">
+                <a href="{{ $latest.Permalink }}" class="font-mono text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">Read the post <span>→</span></a>
+                <a href="/blog/" class="font-mono text-sm text-muted hover:underline">All posts</a>
+            </div>
+        </div>
+    </section>
+    {{ end }}
+
     <!-- Footer / Credentials -->
     <footer class="border-t border-[hsl(var(--border-color))] pt-12 pb-24 flex flex-col md:flex-row justify-between items-start gap-8">
         <div>
