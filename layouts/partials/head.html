@@ -216,6 +216,10 @@
     }
     @keyframes l2 { to { background-position: 150% } }
 
+    /* YAML watermark opacity per theme */
+    .yaml-watermark { color: hsl(var(--text-primary)); opacity: 0.08; z-index: -1; }
+    .dark .yaml-watermark { opacity: 0.04; }
+
     /* Dark mode selection (class-based toggle) */
     .dark ::selection {
         background-color: oklch(37.4% .01 67.558);

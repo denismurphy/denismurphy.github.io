@@ -7,6 +7,24 @@
 
     <canvas id="escher-canvas"></canvas>
 
+    <!-- YAML watermark: fixed to viewport, behind all content -->
+    <pre aria-hidden="true" class="yaml-watermark fixed top-0 left-0 font-mono text-xl leading-loose pointer-events-none select-none overflow-hidden">
+
+
+apiVersion: engineering.io/v1
+kind: Engineer
+metadata:
+  name: denis-murphy
+  location: kerry, ireland
+spec:
+  role: senior-software-engineer
+  focus: backend
+  domains:
+    - cloud-native
+    - distributed-systems
+    - edge-to-cloud-iot
+  experience: 14y+</pre>
+
     {{ partial "nav.html" . }}
 
     {{ block "main" . }}{{ end }}
