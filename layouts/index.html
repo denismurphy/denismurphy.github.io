@@ -467,7 +467,7 @@
         <div class="text-right w-full md:w-auto">
             {{ $commit := site.Params.commit }}
             {{ if ne $commit "local" }}
-            <a href="https://github.com/denismurphy/denismurphy.github.io/commit/{{ $commit }}" target="_blank" rel="noopener" class="font-mono text-xs text-muted mb-2 hover:underline">{{ substr $commit 0 7 }}</a>
+            <a href="https://github.com/denismurphy/denismurphy.github.io/commit/{{ $commit }}" target="_blank" rel="noopener" class="font-mono text-xs text-muted mb-2 hover:underline">Deployed from commit: {{ substr $commit 0 7 }}</a>
             {{ else }}
             <div class="font-mono text-xs text-muted mb-2">ESCHER_ENGINE_V1.0</div>
             {{ end }}
