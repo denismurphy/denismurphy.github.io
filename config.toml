@@ -8,6 +8,7 @@ title = "Denis Murphy | Senior Software Engineer"
   email       = "bWVAZGVuaXNtdXJwaHkuaWU="
   github      = "https://github.com/denismurphy"
   description = "Senior Software Engineer with 14+ years of experience transforming legacy enterprise systems into high-performance cloud architectures."
+  commit      = "local"
 
 [markup]
   [markup.goldmark]
