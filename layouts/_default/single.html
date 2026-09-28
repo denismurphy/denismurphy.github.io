@@ -32,6 +32,105 @@ const PARTICLE_COUNT_LIGHT = 40;
         </div>
     </article>
 
+    {{ if .Store.Get "hasMermaid" }}
+    <script src="/js/mermaid.min.js"></script>
+    <script>
+    (function () {
+        const root = document.documentElement;
+        let renderedDark = null;
+
+        // Theme tokens are stored as "H, S%, L%"; Mermaid needs hex.
+        function token(name) {
+            const raw = getComputedStyle(root).getPropertyValue(name);
+            const m = raw.match(/([\d.]+)\s*,\s*([\d.]+)%\s*,\s*([\d.]+)%/);
+            if (!m) return undefined;
+            const h = +m[1], s = m[2] / 100, l = m[3] / 100;
+            const a = s * Math.min(l, 1 - l);
+            const f = n => {
+                const k = (n + h / 30) % 12;
+                return l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+            };
+            return '#' + [f(0), f(8), f(4)]
+                .map(x => Math.round(x * 255).toString(16).padStart(2, '0')).join('');
+        }
+
+        async function render() {
+            const dark = root.classList.contains('dark');
+            if (dark === renderedDark) return;
+            renderedDark = dark;
+
+            const text = token('--text-primary');
+            const muted = token('--text-secondary');
+            const font = "'JetBrains Mono', monospace";
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: 'base',
+                fontFamily: font,
+                themeVariables: {
+                    darkMode: dark,
+                    fontFamily: font,
+                    fontSize: '14px',
+                    background: token('--bg-card'),
+                    primaryColor: token('--bg-primary'),
+                    primaryTextColor: text,
+                    primaryBorderColor: muted,
+                    secondaryColor: token('--accent'),
+                    tertiaryColor: token('--bg-card'),
+                    lineColor: muted,
+                    textColor: text,
+                    noteBkgColor: token('--accent'),
+                    noteTextColor: text,
+                    noteBorderColor: token('--border-color')
+                },
+                flowchart: { nodeSpacing: 30, rankSpacing: 40, padding: 10 },
+                sequence: { wrap: true, width: 130, actorMargin: 30, messageMargin: 30, boxMargin: 6 }
+            });
+
+            const nodes = document.querySelectorAll('.article-content pre.mermaid');
+            nodes.forEach(el => {
+                el.removeAttribute('data-processed');
+                el.textContent = el.dataset.diagram;
+            });
+            try {
+                await mermaid.run({ nodes });
+            } catch (err) {
+                // Leave the diagram source readable rather than a blank box.
+                console.error('[mermaid]', err);
+                nodes.forEach(el => { if (!el.querySelector('svg')) el.setAttribute('data-processed', 'error'); });
+            }
+            fit();
+        }
+
+        // Mermaid scales an SVG down to fit its box, which makes wide diagrams unreadable.
+        // Never shrink below MIN_SCALE; past that the .diagram box scrolls sideways instead.
+        const MIN_SCALE = 0.8;
+        function fit() {
+            document.querySelectorAll('.article-content .diagram svg').forEach(svg => {
+                const natural = svg.viewBox.baseVal && svg.viewBox.baseVal.width;
+                if (!natural) return;
+                const box = svg.closest('.diagram');
+                const available = box.clientWidth - parseFloat(getComputedStyle(box).paddingLeft) * 2;
+                if (natural * MIN_SCALE > available) {
+                    svg.style.maxWidth = 'none';
+                    svg.style.width = Math.round(natural * MIN_SCALE) + 'px';
+                } else {
+                    svg.style.width = '';
+                    svg.style.maxWidth = natural + 'px';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            render();
+            new MutationObserver(render).observe(root, { attributes: true, attributeFilter: ['class'] });
+            let resizeTimer;
+            window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(fit, 150); });
+        });
+    })();
+    </script>
+    {{ end }}
+
     <footer class="mt-20 pt-10 border-t border-[hsl(var(--border-color))]">
         <div class="flex justify-between items-center">
             <a href="/blog/" class="group flex items-center gap-2 font-mono text-sm font-bold text-[hsl(var(--text-primary))]">

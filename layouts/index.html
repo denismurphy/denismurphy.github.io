@@ -98,13 +98,15 @@
                 </svg>
             </div>
             <h2 class="text-xl font-bold mb-2 flex items-center gap-2">
-                What's Next
-                <span class="text-xs border border-theme px-2 py-0.5 rounded-full font-mono font-normal">In Progress</span>
+                Open To
+                <span class="text-xs border border-theme px-2 py-0.5 rounded-full font-mono font-normal">Senior Backend</span>
             </h2>
-            <ul class="text-muted text-sm space-y-2">
-                <li class="flex items-start gap-2"><span class="font-mono opacity-50 shrink-0">01</span>AWS Certified Solutions Architect: formalising the infra I've been building on for years.</li>
-                <li class="flex items-start gap-2"><span class="font-mono opacity-50 shrink-0">02</span>Training on European Cyber Resilience Act (CRA).</li>
+            <ul class="text-muted text-sm space-y-2 mb-4">
+                <li class="flex items-start gap-2"><span class="font-mono opacity-50 shrink-0">01</span>Senior backend roles: distributed systems, APIs and cloud-native platforms.</li>
+                <li class="flex items-start gap-2"><span class="font-mono opacity-50 shrink-0">02</span>Regulated sectors: healthcare (HL7, FHIR), finance and agritech.</li>
+                <li class="flex items-start gap-2"><span class="font-mono opacity-50 shrink-0">03</span>Remote, or on-site in Kerry.</li>
             </ul>
+            <a href="#contact-btn" class="font-mono text-sm font-bold flex items-center gap-2">Get in touch <span>↑</span></a>
         </div>
     </section>
 
@@ -334,9 +336,19 @@
                         </div>
                         <div class="font-mono text-xs text-muted mt-1">Nov 2012 - May 2016</div>
                     </div>
-                    <p class="text-sm text-muted leading-relaxed">
-                        Modernised Ireland's public sector systems: migrating legacy Apache Struts/JavaEE monoliths to Spring Boot microservices and refactoring PL/SQL into RESTful SOA APIs, working directly with government stakeholders to translate business requirements into technical architecture for services used by millions of citizens.
-                    </p>
+                    <ul class="space-y-3 text-sm list-disc pl-4 text-muted">
+                        <li><strong class="text-[hsl(var(--text-primary))]">HL7 Clinical Messaging:</strong> Built the HSE PCRS HL7 v2.4 service for the Under-6s GP scheme, processing ORU^R01 observations from GP systems via Healthlink and returning HL7 ACKs (Spring Boot, JAXB, LOINC). <a href="/blog/hse-hl7-v2-to-fhir-r5/" class="underline underline-offset-4">Write-up</a></li>
+                        <li><strong class="text-[hsl(var(--text-primary))]">Public Sector Modernisation:</strong> Migrated legacy Apache Struts/JavaEE monoliths to Spring Boot microservices and refactored PL/SQL into RESTful SOA APIs.</li>
+                        <li><strong class="text-[hsl(var(--text-primary))]">Stakeholder Delivery:</strong> Translated government requirements into architecture for services used by millions of citizens, under strict data integrity and compliance requirements.</li>
+                    </ul>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">HL7 v2.4</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Healthlink</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Spring Boot</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">JAXB</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Oracle PL/SQL</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Java EE</span>
+                    </div>
                 </div>
             </div>
 
@@ -360,6 +372,90 @@
                         <div class="text-xs text-muted font-mono mb-2">Microsoft (Dublin) &amp; Microsystems (Chicago)</div>
                         <p class="text-xs text-muted">Early exposure to Azure, .NET, and Open XML document formats.</p>
                     </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="mb-24">
+        <h2 class="text-2xl font-bold tracking-tight mb-8 flex items-center gap-3">
+            <span class="w-8 h-[1px] bg-[hsl(var(--text-primary))]"></span>
+            Recent Builds
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div class="paper-card p-6 h-full flex flex-col justify-between">
+                <div>
+                    <div class="font-mono text-xs text-muted mb-2 uppercase tracking-widest">Healthcare</div>
+                    <h3 class="text-lg font-bold mb-2">OpenClaim Core</h3>
+                    <p class="text-sm text-muted leading-relaxed mb-4">A claims clearinghouse built on HL7 FHIR R5. It scrubs hospital claims, books them in a double-entry ledger and delivers them to payers through a transactional outbox.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Java 25</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Spring Boot 4</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">FHIR R5</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">PostgreSQL</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="/blog/openclaim-core-fhir-r5-claims/" class="font-mono text-sm font-bold flex items-center gap-2">Read the write-up <span>→</span></a>
+                    <a href="https://github.com/denismurphy/openclaim-core" class="font-mono text-sm text-muted hover:underline" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+
+            <div class="paper-card p-6 h-full flex flex-col justify-between">
+                <div>
+                    <div class="font-mono text-xs text-muted mb-2 uppercase tracking-widest">AgriTech / IoT</div>
+                    <h3 class="text-lg font-bold mb-2">Agritelem</h3>
+                    <p class="text-sm text-muted leading-relaxed mb-4">Livestock telemetry from sensor to phone. Hourly sensor data is checked against each animal's 14-day baseline to flag estrus, heat stress and bad data, with an offline-first iOS app.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Go</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">TimescaleDB</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">SwiftUI</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">OpenAPI 3.1</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="/blog/agritelem-livestock-telemetry/" class="font-mono text-sm font-bold flex items-center gap-2">Read the write-up <span>→</span></a>
+                    <a href="https://github.com/denismurphy/agritelem" class="font-mono text-sm text-muted hover:underline" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+
+            <div class="paper-card p-6 h-full flex flex-col justify-between">
+                <div>
+                    <div class="font-mono text-xs text-muted mb-2 uppercase tracking-widest">Banking / KYC</div>
+                    <h3 class="text-lg font-bold mb-2">Aegis CLM</h3>
+                    <p class="text-sm text-muted leading-relaxed mb-4">KYC and AML decisioning for bank counterparties. It traces beneficial ownership through layered and circular structures, and answers "what did we know then" from a bitemporal event store.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">.NET 10</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">C# 14</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Marten</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Event Sourcing</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="/blog/aegis-clm-beneficial-ownership/" class="font-mono text-sm font-bold flex items-center gap-2">Read the write-up <span>→</span></a>
+                    <a href="https://github.com/denismurphy/aegis-clm" class="font-mono text-sm text-muted hover:underline" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+
+            <div class="paper-card p-6 h-full flex flex-col justify-between">
+                <div>
+                    <div class="font-mono text-xs text-muted mb-2 uppercase tracking-widest">Identity / eIDAS</div>
+                    <h3 class="text-lg font-bold mb-2">Trust Hub Core</h3>
+                    <p class="text-sm text-muted leading-relaxed mb-4">The heart of an eIDAS remote qualified-signature service. It verifies national eID logins and enforces SCAL2 sole control before a cloud HSM key signs anything.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">Rust</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">axum</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">eIDAS</span>
+                        <span class="px-2 py-1 text-xs font-mono border border-theme bg-[hsl(var(--bg-primary))]">SCAL2</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="/blog/trust-hub-core-eidas-signing/" class="font-mono text-sm font-bold flex items-center gap-2">Read the write-up <span>→</span></a>
+                    <a href="https://github.com/denismurphy/trust-hub-core" class="font-mono text-sm text-muted hover:underline" target="_blank" rel="noopener">GitHub</a>
                 </div>
             </div>
 
@@ -419,13 +515,14 @@
                     <div class="text-muted">SwiftUI</div>
                     <div class="text-muted">Node.js</div>
                     <div class="text-muted">Kafka</div>
+                    <div class="text-muted">HAPI FHIR</div>
                 </div>
             </div>
 
             <!-- Compliance: full-width row, grouped -->
             <div class="paper-card p-6 md:col-span-4 border-l-2 border-[hsl(var(--text-primary)/0.25)]">
                 <h3 class="font-mono text-xs uppercase tracking-widest mb-4 border-b border-theme pb-2">Compliance &amp; Security</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm">
                     <div>
                         <div class="font-mono text-xs text-muted mb-2 opacity-70">Regulatory Standards</div>
                         <div class="flex flex-wrap gap-x-4 gap-y-1">
@@ -433,6 +530,20 @@
                             <span class="text-muted">ISO 9001</span>
                             <span class="text-muted">NIS2</span>
                             <span class="text-muted">GDPR</span>
+                            <span class="text-muted">eIDAS</span>
+                            <span class="text-muted">MiFID II</span>
+                            <span class="text-muted">AMLR</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-mono text-xs text-muted mb-2 opacity-70">Data &amp; Interop</div>
+                        <div class="flex flex-wrap gap-x-4 gap-y-1">
+                            <span class="text-muted">PostgreSQL</span>
+                            <span class="text-muted">TimescaleDB</span>
+                            <span class="text-muted">HL7 v2</span>
+                            <span class="text-muted">HL7 FHIR R5</span>
+                            <span class="text-muted">ICAR ADE</span>
+                            <span class="text-muted">OpenAPI 3.1</span>
                         </div>
                     </div>
                     <div>

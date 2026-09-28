@@ -15,7 +15,10 @@ title = "Denis Murphy | Senior Software Engineer"
     [markup.goldmark.renderer]
       unsafe = true
   [markup.highlight]
-    codeFences = false
+    # codeFences must be true or Hugo skips code block render hooks (layouts/_markup/render-codeblock-mermaid.html).
+    # noClasses = false emits Chroma class names without inline colours, so code keeps the theme's .article-content pre styling.
+    codeFences = true
+    noClasses = false
 
 [taxonomies]
   tag = "tags"

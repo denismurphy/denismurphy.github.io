@@ -208,6 +208,88 @@
         border-radius: 4px;
         font-size: 0.85em;
     }
+
+    .article-content h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .article-content ol {
+        margin-bottom: 1.5rem;
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+        color: hsl(var(--text-secondary));
+    }
+
+    .article-content a {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    .article-content table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        font-size: 0.875rem;
+    }
+
+    .article-content th,
+    .article-content td {
+        border: 1px solid hsl(var(--border-color));
+        padding: 0.5rem 0.75rem;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .article-content th {
+        background-color: hsl(var(--bg-card));
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    /* Mermaid diagrams (render hook: layouts/_default/_markup/render-codeblock-mermaid.html) */
+    .article-content .diagram {
+        background-color: hsl(var(--bg-card));
+        border: 1px solid hsl(var(--border-color));
+        border-radius: 4px;
+        padding: 1.5rem 1rem;
+        margin: 2rem 0;
+        overflow-x: auto;
+    }
+
+    .article-content .diagram pre.mermaid {
+        background: none;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        font-size: 0.8rem;
+    }
+
+    /* Hide the raw source until Mermaid swaps in the SVG */
+    .article-content .diagram pre.mermaid:not([data-processed]) { visibility: hidden; min-height: 8rem; }
+
+    .article-content .diagram svg {
+        height: auto;
+        margin: 0 auto;
+    }
+
+    /* Let diagrams break out of the 42rem text column on wide screens */
+    @media (min-width: 1024px) {
+        .article-content .diagram {
+            width: min(60rem, calc(100vw - 4rem));
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
     .loader {
         width: 40px;
         aspect-ratio: 4;

@@ -26,6 +26,7 @@
     <div class="flex items-center gap-6 font-mono text-sm">
         {{ if .IsHome }}
             <a href="#experience" class="hover:underline decoration-1 underline-offset-4 hidden sm:block">Experience</a>
+            <a href="#projects" class="hover:underline decoration-1 underline-offset-4 hidden sm:block">Projects</a>
             <a href="#stack" class="hover:underline decoration-1 underline-offset-4 hidden sm:block">Stack</a>
             <a href="/blog/" class="hover:underline decoration-1 underline-offset-4 hidden sm:block">Blog</a>
         {{ else if and (eq .Section "blog") .IsPage }}
